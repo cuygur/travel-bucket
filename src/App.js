@@ -1,60 +1,57 @@
-import React, {useState, useEffect} from 'react';
-import db from './firebaseConfig'
-import './App.css';
+import React, { useState, useEffect } from "react";
+import db from "./firebaseConfig";
+import "./App.css";
 
 function App() {
-  const [header, setHeader] = useState('initial');
-  const [email, setEmail] = useState('');
-  const [fullname, setFullname] = useState("");
-  const [users, setUsers] = useState([])
+  const [bucketItem, setBucketItem] = useState("");
+  const [buckets, setBuckets] = useState([]);
 
-  const fetchData = async ()=> {
-    const res = await db.collection('bucketdemo').doc('header').get()
-    const data = res.data()
-    console.log(data);
-    setHeader(data.title)
-     
-  }
+  const fetchData = async () => {
+    const bucketsRes = await db.collection("buckets").get();
+    console.log(bucketsRes);
+    const bucketsData = bucketsRes.docs.map((bucket) => bucket.data());
+    console.log(bucketsData);
+    setBuckets(bucketsData);
+  };
 
-  const addUser = e => {
-    e.preventDefault()
-    db.collection('users').doc(fullname).set({
-      fullName: fullname,
-      email: email,
-      array: [fullname, email]
-    })
-    setEmail("")
-    setFullname("")
-  }
+  const addBucket = (e) => {
+    e.preventDefault();
+    db.collection("buckets")
+      .doc(bucketItem)
+      .set({
+        bucketItem: bucketItem,
+        array: [bucketItem],
+      });
+    setBucketItem("");
+  };
 
-  useEffect(()=>{
-    fetchData()
-  },[email])
+  useEffect(() => {
+    fetchData();
+  }, [bucketItem]);
 
   return (
     <>
-      <h1>{header}</h1>
-      <form onSubmit={addUser}>
+      <h1>Travel Bucket</h1>
+      <h2>Your travel wishes...</h2>
+      <form onSubmit={addBucket}>
+        <h4>Buckets</h4>
+        {buckets.map((bucket) => (
+          <div>
+            <li>{bucket.bucketItem}</li>
+          </div>
+        ))}
+
         <input
           type="text"
-          name="fullname"
-          placeholder="Full name"
-          onChange={e => setFullname(e.target.value)}
-          value={fullname}
+          name="bucketItem"
+          placeholder="Add a bucket"
+          onChange={(e) => setBucketItem(e.target.value)}
+          value={bucketItem}
         />
-        <input
-          type="email"
-          name="email"
-          placeholder="email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-        />
-        <button type="submit">Submit</button>
+        <button type="submit">Add a card</button>
       </form>
-      <h4>users</h4>
-      {users.map(user => <div><span>Full Name: {user.fullName} </span><span>Email: {user.email} </span></div>)}
-      </>
-      );
-  }
+    </>
+  );
+}
 
 export default App;
