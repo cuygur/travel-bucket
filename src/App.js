@@ -1,57 +1,116 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import db from "./firebaseConfig";
 import "./App.css";
+import AddForm from './Components/AddForm';
 
 function App() {
-  const [bucketItem, setBucketItem] = useState("");
-  const [buckets, setBuckets] = useState([]);
+  const [boards, setBoards] = useState([]);
+    const [boardItem, setBoardItem] = useState([]);
+    const fetchData = async () => {
+    const boardsRes = await db.collection("boards").get();
+    console.log(boardsRes);
+    // TODO: Get the board ID. I think board.data() does not have the id, but board.id is there.
+    //m mapap board => {
+    //    id: board.id,
 
-  const fetchData = async () => {
-    const bucketsRes = await db.collection("buckets").get();
-    console.log(bucketsRes);
-    const bucketsData = bucketsRes.docs.map((bucket) => bucket.data());
-    console.log(bucketsData);
-    setBuckets(bucketsData);
+    //       ...board.data(),
+    // }
+    const boardsData = boardsRes.docs.map((board) => board.data());
+    // console.log(boardsData);
+    setBoards(boardsData);
   };
 
-  const addBucket = (e) => {
-    e.preventDefault();
-    db.collection("buckets")
-      .doc(bucketItem)
-      .set({
-        bucketItem: bucketItem,
-        array: [bucketItem],
-      });
-    setBucketItem("");
-  };
+
 
   useEffect(() => {
     fetchData();
-  }, [bucketItem]);
+  }, []);
 
-  return (
-    <>
+    return (
+      <>
       <h1>Travel Bucket</h1>
       <h2>Your travel wishes...</h2>
-      <form onSubmit={addBucket}>
-        <h4>Buckets</h4>
-        {buckets.map((bucket) => (
+      <form>
+        <h4>Boards</h4>
+        {boards.map((board) => (
           <div>
-            <li>{bucket.bucketItem}</li>
+          <AddForm boardId="FOO"></AddForm>
+        
+          <h2>{board.boardName}</h2>
+            <li>{board.items[0].itemDescription}</li>
           </div>
         ))}
 
         <input
           type="text"
-          name="bucketItem"
-          placeholder="Add a bucket"
-          onChange={(e) => setBucketItem(e.target.value)}
-          value={bucketItem}
+          name="boardItem"
+          placeholder="Add A Board Item"
+          onChange={(e) => setBoardItem(e.target.value)}
+          value={boardItem}
         />
-        <button type="submit">Add a card</button>
+        <button type="submit">Add a item</button>
+      </form>
+    </>
+    );
+}
+
+export default App;
+
+
+
+/* function App() {
+  // const [boardName, setBoardName] = useState("");
+  const [boardItem, setBoardItem] = useState([]);
+  // const [board, setBoard] = useState([]);
+
+  const fetchData = async () => {
+    const boardsRes = await db.collection("boards").get();
+    console.log(boardsRes);
+    const boardsData = boardsRes.docs.map((board) => board.data());
+    // console.log(boardsData);
+    setBoards(boardsData);
+  };
+
+  const addBoardItem = (e) => {
+    e.preventDefault();
+    db.collection('boards')
+      // .doc(bucketItem)
+      .set({
+        bucketItem: bucketItem,
+        array: [bucketItem],
+      });
+    setBoardItem("");
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <h1>Travel Bucket</h1>
+      <h2>Your travel wishes...</h2>
+      <form onSubmit={addBoardItem}>
+        <h4>Boards</h4>
+        {boards.map((board) => (
+          <div>
+            <li>{board.items}</li>
+          </div>
+        ))}
+
+        <input
+          type="text"
+          name="boardItem"
+          placeholder="Add A Board Item"
+          onChange={(e) => setBoardItem(e.target.value)}
+          value={boardItem}
+        />
+        <button type="submit">Add a item</button>
       </form>
     </>
   );
 }
 
-export default App;
+export default App; */
