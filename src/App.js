@@ -39,7 +39,9 @@ function App() {
           <AddForm boardId="FOO"></AddForm>
         
           <h2>{board.boardName}</h2>
+            <li>{board.items[0].itemName}</li>
             <li>{board.items[0].itemDescription}</li>
+            <li><img width="200" height="auto" alt="the image" src={board.items[0].itemImage}/></li>
           </div>
         ))}
 

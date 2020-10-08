@@ -7,10 +7,18 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import'bootstrap-css-only/css/bootstrap.min.css'; 
 import'mdbreact/dist/css/mdb.css';
 import {Router, Route} from 'react-router-dom';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
 ReactDOM.render(
-  <App/>,
+  <React.Fragment>
+      <MDBContainer size="lg">
+        <App/>
+      </MDBContainer>
+  </React.Fragment>
+  ,
   document.getElementById('root')
 );
+
 /*
 ReactDOM.render(
   <Router>
