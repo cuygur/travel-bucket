@@ -10,11 +10,11 @@ import {Router, Route} from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 ReactDOM.render(
-  <React.Fragment>
-      <MDBContainer size="lg">
+  <>
+      
         <App/>
-      </MDBContainer>
-  </React.Fragment>
+      
+  </>
   ,
   document.getElementById('root')
 );

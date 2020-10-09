@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from "./Components/Home";
 import NavbarPage from "./Components/NavbarPage";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
 import db from "./firebaseConfig";
 import "./App.css";
 import AddForm from './Components/AddForm';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
 
 function App() {
   const [boards, setBoards] = useState([]);
@@ -15,7 +18,7 @@ function App() {
     const boardsRes = await db.collection("boards").get();
     console.log(boardsRes);
     // TODO: Get the board ID. I think board.data() does not have the id, but board.id is there.
-    //m mapap board => {
+    //map board => {
     //    id: board.id,
 
     //       ...board.data(),
@@ -32,12 +35,15 @@ function App() {
   }, []);
 
     return (
-      <>
+      
+      <MDBContainer size="lg">
         <Router>
-          <Route path="/" component={NavbarPage} />
-          <Route path="/about" component={About} />
-          <Route path="/contact" component={Contact} />
-          {/*<h2>Your travel wishes...</h2>*/}
+            <Route path="/" component={NavbarPage} />
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+        </Router>
+          
 
           <form>
             <h4>Boards</h4>
@@ -68,8 +74,9 @@ function App() {
             />
             <button type="submit">Add a item</button>
           </form>
-        </Router>
-      </>
+        
+      
+      </MDBContainer>
     );
 }
 

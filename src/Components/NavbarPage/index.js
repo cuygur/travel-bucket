@@ -1,20 +1,7 @@
 import React, { Component } from "react";
-import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-  MDBIcon,
-} from "mdbreact";
 import { BrowserRouter as Router } from "react-router-dom";
-{/*<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"></link>*/}
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
+MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
 
 class NavbarPage extends Component {
   state = {
@@ -27,7 +14,7 @@ class NavbarPage extends Component {
 
   render() {
     return (
-      <Router>
+      
         <MDBNavbar color="default-color" dark expand="md">
           <MDBNavbarBrand>
             <i
@@ -98,7 +85,7 @@ class NavbarPage extends Component {
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
-      </Router>
+      
     );
   }
 }
