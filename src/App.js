@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import NavbarPage from "./Components/NavbarPage";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
 import db from "./firebaseConfig";
 import "./App.css";
 import AddForm from './Components/AddForm';
@@ -30,31 +33,43 @@ function App() {
 
     return (
       <>
-      <h1>Travel Bucket</h1>
-      <h2>Your travel wishes...</h2>
-      <form>
-        <h4>Boards</h4>
-        {boards.map((board) => (
-          <div>
-          <AddForm boardId="FOO"></AddForm>
-        
-          <h2>{board.boardName}</h2>
-            <li>{board.items[0].itemName}</li>
-            <li>{board.items[0].itemDescription}</li>
-            <li><img width="200" height="auto" alt="the image" src={board.items[0].itemImage}/></li>
-          </div>
-        ))}
+        <Router>
+          <Route path="/" component={NavbarPage} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          {/*<h2>Your travel wishes...</h2>*/}
 
-        <input
-          type="text"
-          name="boardItem"
-          placeholder="Add A Board Item"
-          onChange={(e) => setBoardItem(e.target.value)}
-          value={boardItem}
-        />
-        <button type="submit">Add a item</button>
-      </form>
-    </>
+          <form>
+            <h4>Boards</h4>
+            {boards.map((board) => (
+              <div>
+                <AddForm boardId="FOO"></AddForm>
+
+                <h2>{board.boardName}</h2>
+                <li>{board.items[0].itemName}</li>
+                <li>{board.items[0].itemDescription}</li>
+                <li>
+                  <img
+                    width="200"
+                    height="auto"
+                    alt="the image"
+                    src={board.items[0].itemImage}
+                  />
+                </li>
+              </div>
+            ))}
+
+            <input
+              type="text"
+              name="boardItem"
+              placeholder="Add A Board Item"
+              onChange={(e) => setBoardItem(e.target.value)}
+              value={boardItem}
+            />
+            <button type="submit">Add a item</button>
+          </form>
+        </Router>
+      </>
     );
 }
 
