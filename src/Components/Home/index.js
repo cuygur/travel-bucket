@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 
 const Home = () => {
-  return <h1>Ev</h1>;
+  return <h1>Home</h1>;
 };
 
 export default Home;

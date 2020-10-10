@@ -30,9 +30,25 @@ const AddForm = () => {
         <>
         {/* Add three inputs using MDB, and onChange you will update the state */
           <>
-          <input type="text"/>
-          <input type="text"/>
-          <input type="text"/>
+          <input
+                  type="text"
+                  value={itemName}
+                  placeholder="Your travel wish"
+                  onChange={(e) => setItemName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={itemDescription}
+                  placeholder="Describe your wish"
+                  onChange={(e) => setItemDescription(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={itemImage}
+                  placeholder="Add a photo"
+                  onChange={(e) => setItemImage(e.target.value)}
+                />
+
           </>
         }
         <button>Save</button>
