@@ -15,18 +15,25 @@ function App() {
   const [boardItem, setBoardItem] = useState([]);
   const fetchData = async () => {
     const boardsRes = await db.collection("boards").get();
-    console.log(boardsRes);
+    //console.log(boardsRes);
     // TODO: Get the board ID. I think board.data() does not have the id, but board.id is there.
     //map board => {
     //    id: board.id,
 
     //       ...board.data(),
     // }
-    const boardsData = boardsRes.docs.map((board) => board.data());
+    const fetchItem = boardsRes.docs.map((board) => {
+      return ({
+        id: board.id, ...board.data()
+      })});
+   // console.log(fetchItem);
+    const boardsData = boardsRes.docs.map((board) =>  {
+      return ({...board.data(), id : board.id})
+    });
     // console.log(boardsData);
     setBoards(boardsData);
   };
-
+  console.log(boards);
   useEffect(() => {
     fetchData();
   }, []);
