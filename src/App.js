@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import NavbarPage from "./Components/NavbarPage";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
 import db from "./firebaseConfig";
 import "./App.css";
-import AddForm from './Components/AddForm';
+import AddForm from "./Components/AddForm";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-
 
 function App() {
   const [boards, setBoards] = useState([]);
-    const [boardItem, setBoardItem] = useState([]);
-    const fetchData = async () => {
+  const [boardItem, setBoardItem] = useState([]);
+  const fetchData = async () => {
     const boardsRes = await db.collection("boards").get();
     console.log(boardsRes);
     // TODO: Get the board ID. I think board.data() does not have the id, but board.id is there.
@@ -28,61 +27,33 @@ function App() {
     setBoards(boardsData);
   };
 
-
-
   useEffect(() => {
     fetchData();
   }, []);
 
-    return (
-      
-      <MDBContainer size="lg">
-        <Router>
-            <Route path="/" component={NavbarPage} />
-            <Route exact path="/" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
-        </Router>
-          
-
-          <form>
-            <h4>Boards</h4>
-            {boards.map((board) => (
-              <div>
-                <AddForm boardId="FOO"></AddForm>
-
-                <h2>{board.boardName}</h2>
-                <li>{board.items[0].itemName}</li>
-                <li>{board.items[0].itemDescription}</li>
-                <li>
-                  <img
-                    width="200"
-                    height="auto"
-                    alt="the image"
-                    src={board.items[0].itemImage}
-                  />
-                </li>
-              </div>
-            ))}
-
-            <input
-              type="text"
-              name="boardItem"
-              placeholder="Add A Board Item"
-              onChange={(e) => setBoardItem(e.target.value)}
-              value={boardItem}
+  return (
+    <MDBContainer size="lg">
+      <Router>
+        <Route path="/" component={NavbarPage} />
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <Home
+              boards={boards}
+              boardItem={boardItem}
+              setBoardItem={setBoardItem}
             />
-            <button type="submit">Add a item</button>
-          </form>
-        
-      
-      </MDBContainer>
-    );
+          )}
+        />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+      </Router>
+    </MDBContainer>
+  );
 }
 
 export default App;
-
-
 
 /* function App() {
   // const [boardName, setBoardName] = useState("");
