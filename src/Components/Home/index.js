@@ -1,40 +1,107 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddForm from "../AddForm";
+import { v4 as uuidv4 } from "uuid";
 
-const Home = ({ boards, boardItem, setBoardItem }) => {
+const Home = ({
+  boards,
+  boardItem,
+  setBoardItem,
+  boardName,
+  setBoardName,
+  itemName,
+  setItemName,
+  itemImage,
+  setItemImage,
+  itemDescription,
+  setItemDescription,
+  loading,
+  setLoading,
+  AddBoards,
+  EditBoard,
+  DeleteBoard,
+}) => {
   return (
     <>
-      <h1>Home</h1>
-      <form>
-        <h4>Boards</h4>
-        {boards.map((board) => (
-          <div>
-            <AddForm boardId="FOO"></AddForm>
-
-            <h2>{board.boardName}</h2>
-            <li>{board.items[0].itemName}</li>
-            <li>{board.items[0].itemDescription}</li>
-            <li>
-              <img
-                width="200"
-                height="auto"
-                alt="the image"
-                src={board.items[0].itemImage}
-              />
-            </li>
-          </div>
-        ))}
-
+      <h3>Add A New Travel Bucket</h3>
+      <div className="boardInputBox">
         <input
           type="text"
-          name="boardItem"
-          placeholder="Add A Board Item"
-          onChange={(e) => setBoardItem(e.target.value)}
-          value={boardItem}
+          value={boardName}
+          onChange={(e) => setBoardName(e.target.value)}
+          placeholder="New Travel Bucket"
         />
-        <button type="submit">Add a item</button>
-      </form>
+        <br />
+        <br />
+        <input
+          type="text"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
+          placeholder="Your Travel Wish"
+        />
+        <br />
+        <br />
+        <input
+          type="text"
+          value={itemImage}
+          onChange={(e) => setItemImage(e.target.value)}
+          placeholder="Visualize your wish"
+        />
+        <br />
+        <br />
+        <textarea
+          value={itemDescription}
+          onChange={(e) => setItemDescription(e.target.value)}
+          placeholder="Describe your wish"
+        />
+        <br />
+        <br />
+        <button
+          onClick={() =>
+            AddBoards({
+              boardName: boardName,
+              id: uuidv4(),
+              itemName: itemName,
+              itemDescription: itemDescription,
+              itemImage: itemImage,
+            })
+          }
+        >
+          Add Your Bucket
+        </button>
+      </div>
+      <hr />
+      {loading ? <h1>Loading...</h1> : null}
+      {boards.map((board) => (
+        <div className="board" key={board.id}>
+          <h2>{board.boardName}</h2>
+          <h3>{board.itemName}</h3>
+          <img
+            src={board.itemImage}
+            alt="Travel wish visual"
+            title="Travel wish visual"
+          />
+          <p>{board.itemDescription}</p>
+
+          <div>
+            <button
+              onClick={() =>
+                EditBoard({
+                  boardName,
+                  itemDescription,
+                  itemImage,
+                  itemName,
+                  id: board.id,
+                })
+              }
+            >
+              Edit
+            </button>
+            <button onClick={() => DeleteBoard(board)}>Delete</button>
+            <hr />
+          </div>
+        </div>
+      ))}
     </>
   );
 };

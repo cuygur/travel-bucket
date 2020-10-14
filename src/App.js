@@ -9,34 +9,68 @@ import db from "./firebaseConfig";
 import "./App.css";
 import AddForm from "./Components/AddForm";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [boards, setBoards] = useState([]);
   const [boardItem, setBoardItem] = useState([]);
-  const fetchData = async () => {
-    const boardsRes = await db.collection("boards").get();
-    //console.log(boardsRes);
-    // TODO: Get the board ID. I think board.data() does not have the id, but board.id is there.
-    //map board => {
-    //    id: board.id,
+  const [boardName, setBoardName] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [itemName, setItemName] = useState("");
+  const [itemDescription, setItemDescription] = useState("");
+  const [itemImage, setItemImage] = useState("");
+  const boardRef = db.collection("boards");
 
-    //       ...board.data(),
-    // }
-    const fetchItem = boardsRes.docs.map((board) => {
-      return ({
-        id: board.id, ...board.data()
-      })});
-   // console.log(fetchItem);
-    const boardsData = boardsRes.docs.map((board) =>  {
-      return ({...board.data(), id : board.id})
+  //GET BOARDS
+  function GetBoards() {
+    setLoading(true);
+    boardRef.onSnapshot((querySnapshot) => {
+      const boardsList = [];
+      querySnapshot.forEach((doc) => {
+        boardsList.push(doc.data());
+      });
+      setBoards(boardsList);
+      setLoading(false);
     });
-    // console.log(boardsData);
-    setBoards(boardsData);
-  };
-  console.log(boards);
+  }
+
   useEffect(() => {
-    fetchData();
+    GetBoards();
   }, []);
+
+  // ADD BOARD
+
+  function AddBoards(newBoard) {
+    boardRef
+      .doc(newBoard.id)
+      .set(newBoard)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  // ADD A BOARD ITEM
+
+  //DELETE BOARD
+  function DeleteBoard(board) {
+    boardRef
+      .doc(board.id)
+      .delete()
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  // EDIT BOARD
+  function EditBoard(updatedBoard) {
+    setLoading();
+    boardRef
+      .doc(updatedBoard.id)
+      .update(updatedBoard)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   return (
     <MDBContainer size="lg">
@@ -50,6 +84,18 @@ function App() {
               boards={boards}
               boardItem={boardItem}
               setBoardItem={setBoardItem}
+              boardName={boardName}
+              setBoardName={setBoardName}
+              itemName={itemName}
+              setItemName={setItemName}
+              itemImage={itemImage}
+              setItemImage={setItemImage}
+              itemDescription={itemDescription}
+              setItemDescription={setItemDescription}
+              loading={loading}
+              AddBoards={AddBoards}
+              EditBoard={EditBoard}
+              DeleteBoard={DeleteBoard}
             />
           )}
         />
@@ -61,58 +107,3 @@ function App() {
 }
 
 export default App;
-
-/* function App() {
-  // const [boardName, setBoardName] = useState("");
-  const [boardItem, setBoardItem] = useState([]);
-  // const [board, setBoard] = useState([]);
-
-  const fetchData = async () => {
-    const boardsRes = await db.collection("boards").get();
-    console.log(boardsRes);
-    const boardsData = boardsRes.docs.map((board) => board.data());
-    // console.log(boardsData);
-    setBoards(boardsData);
-  };
-
-  const addBoardItem = (e) => {
-    e.preventDefault();
-    db.collection('boards')
-      // .doc(bucketItem)
-      .set({
-        bucketItem: bucketItem,
-        array: [bucketItem],
-      });
-    setBoardItem("");
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  return (
-    <>
-      <h1>Travel Bucket</h1>
-      <h2>Your travel wishes...</h2>
-      <form onSubmit={addBoardItem}>
-        <h4>Boards</h4>
-        {boards.map((board) => (
-          <div>
-            <li>{board.items}</li>
-          </div>
-        ))}
-
-        <input
-          type="text"
-          name="boardItem"
-          placeholder="Add A Board Item"
-          onChange={(e) => setBoardItem(e.target.value)}
-          value={boardItem}
-        />
-        <button type="submit">Add a item</button>
-      </form>
-    </>
-  );
-}
-
-export default App; */
