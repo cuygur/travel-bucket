@@ -34,9 +34,14 @@ function App() {
     });
   }
 
+
+
+
+
+
   useEffect(() => {
     GetBoards();
-  }, []);
+  }, [GetBoards]);
 
   // ADD BOARD
 
@@ -50,6 +55,11 @@ function App() {
   }
 
   // ADD A BOARD ITEM
+  /* function AddBoardItem(newBoardItem){
+    boardRef
+      .doc(board.id)
+      .set(newBoardItem))
+  }  */
 
   //DELETE BOARD
   function DeleteBoard(board) {
@@ -93,6 +103,7 @@ function App() {
               itemDescription={itemDescription}
               setItemDescription={setItemDescription}
               loading={loading}
+              setLoading={setLoading}
               AddBoards={AddBoards}
               EditBoard={EditBoard}
               DeleteBoard={DeleteBoard}

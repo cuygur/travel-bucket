@@ -61,9 +61,12 @@ const Home = ({
             AddBoards({
               boardName: boardName,
               id: uuidv4(),
-              itemName: itemName,
+              items:[
+              {itemName: itemName,
               itemDescription: itemDescription,
-              itemImage: itemImage,
+              itemImage: itemImage
+              }
+              ]
             })
           }
         >
@@ -75,23 +78,26 @@ const Home = ({
       {boards.map((board) => (
         <div className="board" key={board.id}>
           <h2>{board.boardName}</h2>
-          <h3>{board.itemName}</h3>
+          {/* <h3>{board.items[0].itemName}</h3>
           <img
-            src={board.itemImage}
+            src={board.items[0].itemImage}
             alt="Travel wish visual"
             title="Travel wish visual"
           />
-          <p>{board.itemDescription}</p>
+          <p>{board.items[0].itemDescription}</p> */}
 
           <div>
             <button
               onClick={() =>
                 EditBoard({
                   boardName,
-                  itemDescription,
-                  itemImage,
-                  itemName,
                   id: board.id,
+                  items:[
+                  {itemName,
+                  itemDescription,
+                  itemImage}
+                  
+              ]
                 })
               }
             >
