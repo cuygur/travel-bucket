@@ -75,6 +75,7 @@ const Home = ({
       {boards.map((board) => (
         <div className="board" key={board.id}>
           <h2>{board.boardName}</h2>
+          {board.items && board.items.map((k) => JSON.stringify(k))}
           <h3>{board.itemName}</h3>
           <img
             src={board.itemImage}
@@ -83,6 +84,7 @@ const Home = ({
           />
           <p>{board.itemDescription}</p>
 
+<AddForm board={board}/>
           <div>
             <button
               onClick={() =>

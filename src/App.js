@@ -36,20 +36,28 @@ function App() {
 
   useEffect(() => {
     GetBoards();
-  }, []);
+  }, [GetBoards]);
 
   // ADD BOARD
 
   function AddBoards(newBoard) {
     boardRef
       .doc(newBoard.id)
-      .set(newBoard)
+      .set({
+        id: newBoard.id,
+        boardName: newBoard.boardName,
+        items: [{
+          name: newBoard.itemName,
+          description: newBoard.itemDescription,
+          image: newBoard.itemImage,
+        }]
+      })
       .catch((err) => {
         console.error(err);
       });
   }
 
-  // ADD A BOARD ITEM
+
 
   //DELETE BOARD
   function DeleteBoard(board) {

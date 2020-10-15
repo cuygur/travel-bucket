@@ -3,23 +3,33 @@ import db from "../firebaseConfig";
 import "../App.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
-const AddForm = ({ boards, boardItems }) => {
+const AddForm = ({ board }) => {
   const [isShown, setIsShown] = React.useState(false);
   const [itemName, setItemName] = React.useState("");
   const [itemDescription, setItemDescription] = React.useState("");
   const [itemImage, setItemImage] = React.useState("");
   // TODO: image url also needs a state.
 
-  const addBoardItem = (e) => {
-    e.preventDefault();
-    db.collection("boards")
-      // .doc(bucketItem)
-      .set({
-        // itemName: bucketItem,
-        // array: [bucketItem],
-      });
-  };
 
+  function addBoardItem(oldBoard, newBoardItem) {
+    const newBoard = {
+      ...oldBoard
+    }
+    newBoard.items.push(newBoardItem)
+    db.collection("boards")
+      .doc(oldBoard.id)
+      .set(newBoard)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  const handleClick = () => {
+    addBoardItem(board, {
+      name: itemName,
+      description: itemDescription
+// do ımage here
+    })
+  }
   const handleShowClick = () => {
     setIsShown(true);
   };
@@ -52,7 +62,7 @@ const AddForm = ({ boards, boardItems }) => {
               />
             </>
           }
-          <button>Save</button>
+          <button onClick={handleClick}>Save</button>
         </>
       )}
     </div>
