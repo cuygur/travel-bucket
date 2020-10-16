@@ -22,21 +22,29 @@ function App() {
   const boardRef = db.collection("boards");
 
   //GET BOARDS
-  function GetBoards() {
+  useEffect(() => {
     setLoading(true);
     boardRef.onSnapshot((querySnapshot) => {
-      const boardsList = [];
-      querySnapshot.forEach((doc) => {
-        boardsList.push(doc.data());
-      });
-      setBoards(boardsList);
+      querySnapshot.docChanges().forEach(function(change) {
+            if (change.type === "added") {
+              setBoards(boards => [...boards, change.doc.data()])
+            }
+            if (change.type === "modified") {
+              setBoards(boards => {
+              const changedBoardIndex = boards.findIndex(board => board.id === change.doc.id);
+              const boardCopy = boards.slice();
+              
+              boardCopy[changedBoardIndex] = change.doc.data();
+              return boardCopy;
+              });             
+            }
+            if (change.type === "removed") {
+              setBoards(boards => boards.filter(b => b.id === change.doc.data().id));
+            }
+      })
       setLoading(false);
     });
-  }
-
-  useEffect(() => {
-    GetBoards();
-  }, [GetBoards]);
+   }, []);
 
   // ADD BOARD
 
