@@ -60,6 +60,16 @@ class NavbarPage extends Component {
                   <MDBIcon fab icon="twitter" />
                 </MDBNavLink>
               </MDBNavItem>
+                <MDBNavItem>
+                <MDBNavLink className="waves-effect waves-light" to="#!">
+                  <MDBIcon fab icon="instagram" />
+                </MDBNavLink>
+              </MDBNavItem>
+                <MDBNavItem>
+                <MDBNavLink className="waves-effect waves-light" to="#!">
+                  <MDBIcon fab icon="facebook" />
+                </MDBNavLink>
+              </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink className="waves-effect waves-light" to="#!">
                   <MDBIcon fab icon="google-plus-g" />
@@ -73,12 +83,12 @@ class NavbarPage extends Component {
                   <MDBDropdownMenu className="dropdown-default">
                     <MDBDropdownItem href="#!">Sign in</MDBDropdownItem>
                     <MDBDropdownItem href="#!">Sign up</MDBDropdownItem>
-                    <MDBDropdownItem href="#!">
+                    {/* <MDBDropdownItem href="#!">
                       Something else here
                     </MDBDropdownItem>
                     <MDBDropdownItem href="#!">
                       Something else here
-                    </MDBDropdownItem>
+                    </MDBDropdownItem> */}
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavItem>

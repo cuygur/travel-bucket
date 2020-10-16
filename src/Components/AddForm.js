@@ -8,8 +8,7 @@ const AddForm = ({ board }) => {
   const [itemName, setItemName] = React.useState("");
   const [itemDescription, setItemDescription] = React.useState("");
   const [itemImage, setItemImage] = React.useState("");
-  // TODO: image url also needs a state.
-
+  const [isCompleted,setIsCompleted]= React.useState(false);
 
   function addBoardItem(oldBoard, newBoardItem) {
     const newBoard = {
@@ -23,17 +22,19 @@ const AddForm = ({ board }) => {
         console.error(err);
       });
   }
-  const handleClick = () => {
-    addBoardItem(board, {
-      name: itemName,
-      description: itemDescription
-// do ımage here
-    })
-  }
+ 
   const handleShowClick = () => {
     setIsShown(true);
   };
+
   // TODO: handle click of save button to set into Firebase.
+   const handleClick = () => {
+    addBoardItem(board, {
+      name: itemName,
+      description: itemDescription,
+      image:itemImage
+    })
+  }
   return (
     <div>
       {!isShown && <button onClick={handleShowClick}>Show add form</button>}
@@ -62,7 +63,7 @@ const AddForm = ({ board }) => {
               />
             </>
           }
-          <button onClick={handleClick}>Save</button>
+          <button onClick={handleClick}>Save your wish</button>
         </>
       )}
     </div>

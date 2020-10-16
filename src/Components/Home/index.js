@@ -75,7 +75,22 @@ const Home = ({
       {boards.map((board) => (
         <div className="board" key={board.id}>
           <h2>{board.boardName}</h2>
-          {board.items && board.items.map((k) => JSON.stringify(k))}
+           {board.items && board.items.map((k) => JSON.stringify(k))}
+          {/* {board.items && board.items.map((item, i) => (
+          <p key={i}>
+            <span>Key Name: {i}</span>
+            <span>Value: {boards[i]}</span>
+          </p>
+          ))} */}
+            
+          
+          
+          {/* <ul>
+          {board.items && board.items.map((item, i) => {
+            return <li key={i}>{item.itemName}</li>
+          })}
+          </ul> */}
+          
           <h3>{board.itemName}</h3>
           <img
             src={board.itemImage}
