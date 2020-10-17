@@ -2,35 +2,27 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddForm from "../AddForm";
 import { v4 as uuidv4 } from "uuid";
+import {
+  MDBBtn,
+  MDBCardGroup,
+  MDBCardBody,
+  MDBCard,
+  MDBCardImage,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCol,
+  MDBInput,
+  MDBContainer,
+  MDBRow,
+  MDBTypography,
+  MDBIcon,
+} from "mdbreact";
 
 
-/* function deleteBoardItem(oldBoardItem) {
-    const newBoardItem = {
-      ...oldBoardItem
-    }
-    newBoardItem.items.push(newBoardItem)
-     db.collection("boards")
-      .doc(oldBoard.id) 
-      .catch((err) => {
-        console.error(err);
-      });
-  } */
-
-/* const handleDelete = () => {
-    deleteBoardItem(board, {
-          name: itemName,
-          description: itemDescription,
-          image:itemImage 
-        })
-    } */
-
-/* const handleClick = () => {
-    addBoardItem(board, {
-      name: itemName,
-      description: itemDescription,
-      image:itemImage
-    })
-  } */
+//REMAINDER:This index has; 
+//Homepage header
+//Create Board Form Section(display) 
+//Board Items Section (display)
 
 const Home = ({
   boards,
@@ -51,105 +43,117 @@ const Home = ({
   DeleteBoard,
 }) => {
   return (
-    <>
-      <h3>Add A New Travel Bucket</h3>
-      <div className="boardInputBox">
-        <input
-          type="text"
-          value={boardName}
-          onChange={(e) => setBoardName(e.target.value)}
-          placeholder="New Travel Bucket"
-        />
+    <MDBContainer>
+      <br />
+      {/* //Homepage header */}
+      <MDBTypography tag="h1" className="text-center">
+        <MDBIcon icon="map-marked" className="cyan-text pr-3" size="1x" />
         <br />
-        <br />
-        <input
-          type="text"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-          placeholder="Your Travel Wish"
-        />
-        <br />
-        <br />
-        <input
-          type="text"
-          value={itemImage}
-          onChange={(e) => setItemImage(e.target.value)}
-          placeholder="Visualize your wish"
-        />
-        <br />
-        <br />
-        <textarea
-          value={itemDescription}
-          onChange={(e) => setItemDescription(e.target.value)}
-          placeholder="Describe your wish"
-        />
-        <br />
-        <br />
-        <button
-          onClick={() =>
-            AddBoards({
-              boardName: boardName,
-              id: uuidv4(),
-              itemName: itemName,
-              itemDescription: itemDescription,
-              itemImage: itemImage,
-            })
-          }
-        >
-          Add Your Bucket
-        </button>
-      </div>
+        <strong className="cyan-text">
+          <i>Your Travel Wishes...</i>{" "}
+        </strong>
+      </MDBTypography>
+      <br />
+      {/* //Create Board Form Section(display) */}
+      <MDBCard>
+        <MDBCardBody>
+          <MDBInput
+            type="text"
+            value={boardName}
+            onChange={(e) => setBoardName(e.target.value)}
+            label="New Travel Bucket"
+          />
+          <MDBInput
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            label="Your Travel Wish"
+          />
+          <MDBInput
+            type="text"
+            value={itemImage}
+            onChange={(e) => setItemImage(e.target.value)}
+            label="Visualize your wish"
+          />
+          <MDBCardText
+            value={itemDescription}
+            onChange={(e) => setItemDescription(e.target.value)}
+            label="Describe your wish"
+          />
+
+          <MDBBtn
+            onClick={() =>
+              AddBoards({
+                boardName: boardName,
+                id: uuidv4(),
+                itemName: itemName,
+                itemDescription: itemDescription,
+                itemImage: itemImage,
+              })
+            }
+          >
+            Add Your Travel Bucket
+          </MDBBtn>
+        </MDBCardBody>
+      </MDBCard>
       <hr />
       {loading ? <h1>Loading...</h1> : null}
-      {boards.map((board) => (
-        <div className="board" key={board.id}>
-          <h2>{board.boardName}</h2>
-           {/* {board.items && board.items.map((k) => JSON.stringify(k))} */}
-          {board.items && board.items.map((item) => (
-          <p key={item.name} > 
-            {/* <span className="item-delete-button" onClick={() => handleDelete(item.name)}>×</span> */}
-            <p>Name: {item.name}</p>
-            <p>Description: {item.description}</p>
-          </p>
-          ))}
-            
-          
-          
-          {/* <ul>
-          {board.items && board.items.map((item, i) => {
-            return <li key={i}>{item.itemName}</li>
-          })}
-          </ul> */}
-          
-          <h3>{board.itemName}</h3>
-          <img
-            src={board.itemImage}
-            
-          />
-          <p>{board.itemDescription}</p>
 
-<AddForm board={board}/>
-          <div>
-            <button
-              onClick={() =>
-                EditBoard({
-                  boardName,
-                  itemDescription,
-                  itemImage,
-                  itemName,
-                  id: board.id,
-                })
-              }
-            >
-              Edit
-            </button>
-            <br />
-            <button onClick={() => DeleteBoard(board)}>Delete Your Bucket</button>
-            <hr />
-          </div>
-        </div>
-      ))}
-    </>
+      {/* //Board Items Section including edit and delete buttons (display) */}
+      <MDBCardGroup>
+        {boards.map((board) => (
+          <MDBCol size="4">
+            <MDBCard>
+              <MDBCardBody>
+                <div className="board" key={board.id}>
+                  <MDBCardTitle tag="h3">{board.boardName}</MDBCardTitle>
+                  {board.items &&
+                    board.items.map((item) => (
+                      <MDBCardText className="text-center" key={item.name}>
+                        <MDBRow className="mb-4">
+                          <img src={item.image} className="img-fluid" alt="" />
+                        </MDBRow>
+                        <MDBCardText className="text-left">
+                          Wish Name: {item.name}
+                        </MDBCardText>
+                        <MDBCardText className="text-left">
+                          Description: {item.description}
+                        </MDBCardText>
+                      </MDBCardText>
+                    ))}
+
+                  <AddForm board={board} />
+
+                  <div>
+                    <MDBBtn
+                      size="md"
+                      onClick={() =>
+                        EditBoard({
+                          boardName,
+                          itemDescription,
+                          itemImage,
+                          itemName,
+                          id: board.id,
+                        })
+                      }
+                    >
+                      Edit
+                    </MDBBtn>
+
+                    <MDBBtn size="md" onClick={() => DeleteBoard(board)}>
+                      Delete Your Bucket
+                    </MDBBtn>
+
+                    <hr />
+                    <br />
+                  </div>
+                </div>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        ))}
+      </MDBCardGroup>
+    </MDBContainer>
   );
 };
 

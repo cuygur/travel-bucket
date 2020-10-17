@@ -25,26 +25,30 @@ function App() {
   useEffect(() => {
     setLoading(true);
     boardRef.onSnapshot((querySnapshot) => {
-      querySnapshot.docChanges().forEach(function(change) {
-            if (change.type === "added") {
-              setBoards(boards => [...boards, change.doc.data()])
-            }
-            if (change.type === "modified") {
-              setBoards(boards => {
-              const changedBoardIndex = boards.findIndex(board => board.id === change.doc.id);
-              const boardCopy = boards.slice();
-              
-              boardCopy[changedBoardIndex] = change.doc.data();
-              return boardCopy;
-              });             
-            }
-            if (change.type === "removed") {
-              setBoards(boards => boards.filter(b => b.id === change.doc.data().id));
-            }
-      })
+      querySnapshot.docChanges().forEach(function (change) {
+        if (change.type === "added") {
+          setBoards((boards) => [...boards, change.doc.data()]);
+        }
+        if (change.type === "modified") {
+          setBoards((boards) => {
+            const changedBoardIndex = boards.findIndex(
+              (board) => board.id === change.doc.id
+            );
+            const boardCopy = boards.slice();
+
+            boardCopy[changedBoardIndex] = change.doc.data();
+            return boardCopy;
+          });
+        }
+        if (change.type === "removed") {
+          setBoards((boards) =>
+            boards.filter((b) => b.id === change.doc.data().id)
+          );
+        }
+      });
       setLoading(false);
     });
-   }, []);
+  }, []);
 
   // ADD BOARD
 
@@ -54,18 +58,18 @@ function App() {
       .set({
         id: newBoard.id,
         boardName: newBoard.boardName,
-        items: [{
-          name: newBoard.itemName,
-          description: newBoard.itemDescription,
-          image: newBoard.itemImage,
-        }]
+        items: [
+          {
+            name: newBoard.itemName,
+            description: newBoard.itemDescription,
+            image: newBoard.itemImage,
+          },
+        ],
       })
       .catch((err) => {
         console.error(err);
       });
   }
-
-
 
   //DELETE BOARD
   function DeleteBoard(board) {
