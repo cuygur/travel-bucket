@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddForm from "../AddForm";
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
 import { v4 as uuidv4 } from "uuid";
 import {
   MDBBtn,
@@ -30,6 +32,8 @@ const Home = ({
   setBoardItem,
   boardName,
   setBoardName,
+  boardAssignee,
+  setBoardAssignee,
   itemName,
   setItemName,
   itemImage,
@@ -71,10 +75,25 @@ const Home = ({
           />
           <MDBInput
             type="text"
+            value={boardAssignee}
+            onChange={(e) => setBoardAssignee(e.target.value)}
+            label="Set Assignee"
+          />
+          <MDBInput
+            type="text"
             value={itemImage}
             onChange={(e) => setItemImage(e.target.value)}
             label="Visualize your wish"
           />
+          {/* <FileUploader
+            accept='image/*'
+            name='image-uploader-multiple'
+            randomizeFileName
+            storageRef={firebase.storage().ref('images')}
+            value={itemImage}
+            onChange={(e) => setItemImage(e.target.value)}
+            label="Visualize your wish"
+          /> */}
           <MDBCardText
             value={itemDescription}
             onChange={(e) => setItemDescription(e.target.value)}
@@ -88,6 +107,7 @@ const Home = ({
                 id: uuidv4(),
                 itemName: itemName,
                 itemDescription: itemDescription,
+                boardAssignee: boardAssignee,
                 itemImage: itemImage,
               })
             }
@@ -107,11 +127,19 @@ const Home = ({
               <MDBCardBody>
                 <div className="board" key={board.id}>
                   <MDBCardTitle tag="h3">{board.boardName}</MDBCardTitle>
+                  <MDBCardText tag="h5">{board.boardAssignee}</MDBCardText>
                   {board.items &&
                     board.items.map((item) => (
                       <MDBCardText className="text-center" key={item.name}>
                         <MDBRow className="mb-4">
                           <img src={item.image} className="img-fluid" alt="" />
+                          {/* <FileUploader
+                            accept='image/*'
+                            name='image-uploader-multiple'
+                            randomizeFileName
+                            storageRef={firebase.storage().ref('image')}
+
+                          /> */}
                         </MDBRow>
                         <MDBCardText className="text-left">
                           Wish Name: {item.name}

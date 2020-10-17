@@ -19,6 +19,7 @@ function App() {
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [itemImage, setItemImage] = useState("");
+  const [boardAssignee, setBoardAssignee] = useState([]);
   const boardRef = db.collection("boards");
 
   //GET BOARDS
@@ -58,6 +59,7 @@ function App() {
       .set({
         id: newBoard.id,
         boardName: newBoard.boardName,
+        boardAssignee: newBoard.boardAssignee,
         items: [
           {
             name: newBoard.itemName,
@@ -93,7 +95,7 @@ function App() {
   }
 
   return (
-    <MDBContainer size="lg">
+    <MDBContainer fluid>
       <Router>
         <Route path="/" component={NavbarPage} />
         <Route
@@ -106,6 +108,8 @@ function App() {
               setBoardItem={setBoardItem}
               boardName={boardName}
               setBoardName={setBoardName}
+              boardAssignee={boardAssignee}
+              setBoardAssignee={setBoardAssignee}
               itemName={itemName}
               setItemName={setItemName}
               itemImage={itemImage}

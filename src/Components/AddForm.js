@@ -1,5 +1,6 @@
 import React from "react";
 import db from "../firebaseConfig";
+/* import firebase from "firebase"; */
 import "../App.css";
 import {
   MDBBtn,
@@ -23,6 +24,8 @@ const AddForm = ({ board }) => {
   const [itemDescription, setItemDescription] = React.useState("");
   const [itemImage, setItemImage] = React.useState("");
   const [isCompleted, setIsCompleted] = React.useState(false);
+  const [fileNames, setFileNames] = React.useState([]);
+  const [downloadURLs, setDownloadURLs] = React.useState([]);
 
   function addBoardItem(oldBoard, newBoardItem) {
     const newBoard = {
@@ -48,6 +51,23 @@ const AddForm = ({ board }) => {
       image: itemImage,
     });
   };
+
+  /* const handleUploadSuccess = async filename => {
+    const downloadURL = await firebase
+    .storage()
+    .ref('images')
+    .child(filename)
+    .getDownloadURL();
+
+    this.setState(oldState => ({
+      filenames: [...oldState.filenames, filename],
+      downloadURLs: [...oldState.downloadURLs, downloadURL],
+      uploadProgress: 100,
+      isUploading: false
+    })); 
+
+  }*/
+
   return (
     <MDBCardGroup>
       <MDBCard>
