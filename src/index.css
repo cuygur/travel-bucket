@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+div.container-fluid {
+  padding:0;
+}
+
+.brand {
+  margin-right:6em;
+  margin-left:8em;
+}
+
+.social-media-icons{
+  margin-right:8em;
+}
+
+.main-navs{
+  margin-left:3.5em;
+  margin-right:3em;  
+}

@@ -1,7 +1,5 @@
 import React from "react";
 import db from "../firebaseConfig";
-/* import firebase from "firebase"; */
-import "../App.css";
 import {
   MDBBtn,
   MDBCardGroup,
@@ -14,10 +12,7 @@ import {
   MDBInput,
 } from "mdbreact";
 
-
-//REMAINDER:This file has;
-//Add Board Items function and Add Board Items Button (shows add items for regarding user clicks button or not)
-
+// REMAINDER:This file has; add Board Items function and Add Board Items Button (shows add items for regarding user clicks button or not)
 const AddForm = ({ board }) => {
   const [isShown, setIsShown] = React.useState(false);
   const [itemName, setItemName] = React.useState("");
@@ -70,7 +65,6 @@ const AddForm = ({ board }) => {
 
   return (
     <MDBCardGroup>
-      <MDBCard>
         <div>
           {!isShown && (
             <MDBBtn size="md" onClick={handleShowClick}>
@@ -110,7 +104,6 @@ const AddForm = ({ board }) => {
             </MDBCardBody>
           )}
         </div>
-      </MDBCard>
     </MDBCardGroup>
   );
 };

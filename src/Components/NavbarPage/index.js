@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -28,7 +27,7 @@ class NavbarPage extends Component {
     return (
       <MDBNavbar color="default-color" dark expand="md">
         <MDBNavbarBrand>
-          <i className="white-text font-italic font-weight-bold">
+          <i className="white-text font-italic font-weight-bold brand">
             Travel Bucket
           </i>
         </MDBNavbarBrand>
@@ -36,16 +35,22 @@ class NavbarPage extends Component {
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
             <MDBNavItem active>
-              <MDBNavLink to="/">Home</MDBNavLink>
+              <MDBNavLink to="/" className="main-navs">
+                Home
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="/about">About</MDBNavLink>
+              <MDBNavLink to="/about" className="main-navs">
+                About
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="/contact">Contact</MDBNavLink>
+              <MDBNavLink to="/contact" className="main-navs">
+                Contact
+              </MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
-          <MDBNavbarNav right>
+          <MDBNavbarNav right className="social-media-icons">
             <MDBNavItem>
               <MDBNavLink className="waves-effect waves-light" to="#!">
                 <MDBIcon fab icon="twitter" />

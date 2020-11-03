@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import NavbarPage from "./Components/NavbarPage";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
 import db from "./firebaseConfig";
-import "./App.css";
-import AddForm from "./Components/AddForm";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [boards, setBoards] = useState([]);
@@ -22,7 +18,7 @@ function App() {
   const [boardAssignee, setBoardAssignee] = useState([]);
   const boardRef = db.collection("boards");
 
-  //GET BOARDS
+  // GET BOARDS
   useEffect(() => {
     setLoading(true);
     boardRef.onSnapshot((querySnapshot) => {
@@ -52,7 +48,6 @@ function App() {
   }, []);
 
   // ADD BOARD
-
   function AddBoards(newBoard) {
     boardRef
       .doc(newBoard.id)
@@ -73,7 +68,7 @@ function App() {
       });
   }
 
-  //DELETE BOARD
+  // DELETE BOARD
   function DeleteBoard(board) {
     boardRef
       .doc(board.id)

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddForm from "../AddForm";
-import firebase from "firebase";
-import FileUploader from "react-firebase-file-uploader";
 import { v4 as uuidv4 } from "uuid";
 import {
   MDBBtn,
