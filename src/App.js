@@ -1,51 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./Components/Home";
-import NavbarPage from "./Components/NavbarPage";
-import About from "./Components/About";
-import Contact from "./Components/Contact";
-import db from "./firebaseConfig";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import React, { useState, useEffect } from "react"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import Home from "./Components/Home"
+import NavbarPage from "./Components/NavbarPage"
+import About from "./Components/About"
+import Contact from "./Components/Contact"
+import db from "./firebaseConfig"
+import { MDBContainer } from "mdbreact"
 
 function App() {
-  const [boards, setBoards] = useState([]);
-  const [boardItem, setBoardItem] = useState([]);
-  const [boardName, setBoardName] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [itemName, setItemName] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
-  const [itemImage, setItemImage] = useState("");
-  const [boardAssignee, setBoardAssignee] = useState([]);
-  const boardRef = db.collection("boards");
+  const [boards, setBoards] = useState([])
+  const [boardItem, setBoardItem] = useState([])
+  const [boardName, setBoardName] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [itemName, setItemName] = useState("")
+  const [itemDescription, setItemDescription] = useState("")
+  const [itemImage, setItemImage] = useState("")
+  const [boardAssignee, setBoardAssignee] = useState([])
+  const boardRef = db.collection("boards")
 
   // GET BOARDS
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
     boardRef.onSnapshot((querySnapshot) => {
       querySnapshot.docChanges().forEach(function (change) {
         if (change.type === "added") {
-          setBoards((boards) => [...boards, change.doc.data()]);
+          setBoards((boards) => [...boards, change.doc.data()])
         }
         if (change.type === "modified") {
           setBoards((boards) => {
             const changedBoardIndex = boards.findIndex(
               (board) => board.id === change.doc.id
-            );
-            const boardCopy = boards.slice();
-
-            boardCopy[changedBoardIndex] = change.doc.data();
-            return boardCopy;
-          });
+            )
+            const boardCopy = boards.slice()
+            boardCopy[changedBoardIndex] = change.doc.data()
+            return boardCopy
+          })
         }
         if (change.type === "removed") {
           setBoards((boards) =>
             boards.filter((b) => b.id === change.doc.data().id)
-          );
+          )
         }
-      });
-      setLoading(false);
-    });
-  }, []);
+      })
+      setLoading(false)
+    })
+  }, [])
 
   // ADD BOARD
   function AddBoards(newBoard) {
@@ -64,8 +63,8 @@ function App() {
         ],
       })
       .catch((err) => {
-        console.error(err);
-      });
+        console.error(err)
+      })
   }
 
   // DELETE BOARD
@@ -74,19 +73,19 @@ function App() {
       .doc(board.id)
       .delete()
       .catch((err) => {
-        console.error(err);
-      });
+        console.error(err)
+      })
   }
 
   // EDIT BOARD
   function EditBoard(updatedBoard) {
-    setLoading();
+    setLoading()
     boardRef
       .doc(updatedBoard.id)
       .update(updatedBoard)
       .catch((err) => {
-        console.error(err);
-      });
+        console.error(err)
+      })
   }
 
   return (
@@ -122,7 +121,7 @@ function App() {
         <Route path="/contact" component={Contact} />
       </Router>
     </MDBContainer>
-  );
+  )
 }
 
-export default App;
+export default App

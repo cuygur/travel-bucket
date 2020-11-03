@@ -1,32 +1,28 @@
-import React, { useState, useEffect } from "react";
-import AddForm from "../AddForm";
-import { v4 as uuidv4 } from "uuid";
+import React from "react"
+import AddForm from "../AddForm"
+import { v4 as uuidv4 } from "uuid"
 import {
   MDBBtn,
   MDBCardGroup,
   MDBCardBody,
   MDBCard,
-  MDBCardImage,
   MDBCardTitle,
   MDBCardText,
   MDBCol,
   MDBInput,
   MDBContainer,
   MDBRow,
-  MDBTypography,
   MDBIcon,
-} from "mdbreact";
+} from "mdbreact"
+import HomePageHeader from "../HomePageHeader"
 
-
-//REMAINDER:This index has; 
+//REMAINDER:This index has;
 //Homepage header
-//Create Board Form Section(display) 
+//Create Board Form Section(display)
 //Board Items Section (display)
 
 const Home = ({
   boards,
-  boardItem,
-  setBoardItem,
   boardName,
   setBoardName,
   boardAssignee,
@@ -38,7 +34,6 @@ const Home = ({
   itemDescription,
   setItemDescription,
   loading,
-  setLoading,
   AddBoards,
   EditBoard,
   DeleteBoard,
@@ -46,14 +41,7 @@ const Home = ({
   return (
     <MDBContainer>
       <br />
-      {/* //Homepage header */}
-      <MDBTypography tag="h1" className="text-center">
-        <MDBIcon icon="map-marked" className="cyan-text pr-3" size="1x" />
-        <br />
-        <strong className="cyan-text">
-          <i>Your Travel Wishes...</i>{" "}
-        </strong>
-      </MDBTypography>
+      <HomePageHeader />
       <br />
       {/* //Create Board Form Section(display) */}
       <MDBCard>
@@ -82,15 +70,7 @@ const Home = ({
             onChange={(e) => setItemImage(e.target.value)}
             label="Visualize your wish"
           />
-          {/* <FileUploader
-            accept='image/*'
-            name='image-uploader-multiple'
-            randomizeFileName
-            storageRef={firebase.storage().ref('images')}
-            value={itemImage}
-            onChange={(e) => setItemImage(e.target.value)}
-            label="Visualize your wish"
-          /> */}
+
           <MDBCardText
             value={itemDescription}
             onChange={(e) => setItemDescription(e.target.value)}
@@ -107,8 +87,7 @@ const Home = ({
                 boardAssignee: boardAssignee,
                 itemImage: itemImage,
               })
-            }
-          >
+            }>
             Add Your Travel Bucket
           </MDBBtn>
         </MDBCardBody>
@@ -130,13 +109,6 @@ const Home = ({
                       <MDBCardText className="text-center" key={item.name}>
                         <MDBRow className="mb-4">
                           <img src={item.image} className="img-fluid" alt="" />
-                          {/* <FileUploader
-                            accept='image/*'
-                            name='image-uploader-multiple'
-                            randomizeFileName
-                            storageRef={firebase.storage().ref('image')}
-
-                          /> */}
                         </MDBRow>
                         <MDBCardText className="text-left">
                           Wish Name: {item.name}
@@ -146,9 +118,7 @@ const Home = ({
                         </MDBCardText>
                       </MDBCardText>
                     ))}
-
                   <AddForm board={board} />
-
                   <div>
                     <MDBBtn
                       size="md"
@@ -160,15 +130,12 @@ const Home = ({
                           itemName,
                           id: board.id,
                         })
-                      }
-                    >
+                      }>
                       Edit
                     </MDBBtn>
-
                     <MDBBtn size="md" onClick={() => DeleteBoard(board)}>
                       Delete Your Bucket
                     </MDBBtn>
-
                     <hr />
                     <br />
                   </div>
@@ -179,7 +146,7 @@ const Home = ({
         ))}
       </MDBCardGroup>
     </MDBContainer>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
