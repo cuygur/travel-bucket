@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/travel-bucket/static/css/main.289a8f38.chunk.css",
+    "main.js": "/travel-bucket/static/js/main.0b51fba3.chunk.js",
+    "main.js.map": "/travel-bucket/static/js/main.0b51fba3.chunk.js.map",
+    "runtime-main.js": "/travel-bucket/static/js/runtime-main.194970b1.js",
+    "runtime-main.js.map": "/travel-bucket/static/js/runtime-main.194970b1.js.map",
+    "static/css/2.6ac30a6f.chunk.css": "/travel-bucket/static/css/2.6ac30a6f.chunk.css",
+    "static/js/2.e4456d6f.chunk.js": "/travel-bucket/static/js/2.e4456d6f.chunk.js",
+    "static/js/2.e4456d6f.chunk.js.map": "/travel-bucket/static/js/2.e4456d6f.chunk.js.map",
+    "index.html": "/travel-bucket/index.html",
+    "precache-manifest.0815fd15451aefbcdafa0387b5c5156d.js": "/travel-bucket/precache-manifest.0815fd15451aefbcdafa0387b5c5156d.js",
+    "service-worker.js": "/travel-bucket/service-worker.js",
+    "static/css/2.6ac30a6f.chunk.css.map": "/travel-bucket/static/css/2.6ac30a6f.chunk.css.map",
+    "static/css/main.289a8f38.chunk.css.map": "/travel-bucket/static/css/main.289a8f38.chunk.css.map",
+    "static/js/2.e4456d6f.chunk.js.LICENSE.txt": "/travel-bucket/static/js/2.e4456d6f.chunk.js.LICENSE.txt",
+    "static/media/mdb.css": "/travel-bucket/static/media/arrow_right.8ef6a08c.svg",
+    "static/media/all.min.css": "/travel-bucket/static/media/fa-solid-900.8e1ed89b.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.194970b1.js",
+    "static/css/2.6ac30a6f.chunk.css",
+    "static/js/2.e4456d6f.chunk.js",
+    "static/css/main.289a8f38.chunk.css",
+    "static/js/main.0b51fba3.chunk.js"
+  ]
+}
